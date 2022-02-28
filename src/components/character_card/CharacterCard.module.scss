@@ -1,0 +1,66 @@
+@import "../../scss/constants";
+
+.Container {
+  position: relative;
+  border-radius: 4px;
+  background-color: $white;
+  box-shadow: 0px 8px 24px rgba(216, 216, 216, 0.25);
+  cursor: pointer;
+  width: 220px;
+  height: 340px;
+
+  &:hover {
+    box-shadow: 0px 8px 24px rgba(166, 166, 166, 0.25);
+    transform: scale(1.05);
+
+    .Status {
+      opacity: 1;
+      transform: translateY(0px);
+      top: 10px;
+    }
+  }
+
+  img {
+    width: 100%;
+    border-radius: 4px;
+  }
+
+  .Status {
+    opacity: 0;
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    @extend %CenterVH;
+
+    .StatusDot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      //   background: $green;
+      position: absolute;
+    }
+    .StatusDotBG {
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      //   background: $greenv2;
+      filter: blur(2.66667px);
+    }
+  }
+
+  .Details {
+    padding: 12px 15px 0px 15px;
+    div {
+      @extend %CenterV;
+      margin-bottom: 15px;
+      p {
+        font-family: $font-family-primary;
+        font-weight: 600;
+        font-size: 16px;
+        margin: 0;
+        flex: 1;
+        @extend %Ellipsis;
+      }
+    }
+  }
+}

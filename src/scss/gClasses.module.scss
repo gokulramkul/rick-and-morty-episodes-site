@@ -1,0 +1,18 @@
+.DisplayFlex {
+  display: flex;
+}
+
+.CenterV {
+  display: flex;
+  align-items: center;
+}
+
+.CenterVH {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.PositionAbsolute {
+  position: absolute;
+}

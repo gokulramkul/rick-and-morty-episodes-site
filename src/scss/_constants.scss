@@ -1,0 +1,30 @@
+$font-family-primary: Proxima Nova, sans-serif;
+
+$white: #ffffff;
+
+$purple: #584eff;
+
+$grey: #c4c4c4;
+$grey-v2: #e6e6e6;
+
+%CenterV {
+  display: flex;
+  align-items: center;
+}
+
+%CenterH {
+  display: flex;
+  justify-content: center;
+}
+
+%CenterVH {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+%Ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

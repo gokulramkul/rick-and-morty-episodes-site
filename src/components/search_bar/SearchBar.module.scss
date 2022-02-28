@@ -1,0 +1,45 @@
+@import "../../scss/constants";
+
+.Container {
+  height: 40px;
+  width: fit-content;
+  border-radius: 50px;
+  border: 1px solid $grey;
+  @extend %CenterV;
+
+  input {
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font-family: $font-family-primary;
+    font-weight: 700;
+    font-size: 15px;
+    align-items: center;
+    margin-left: 15px;
+    width: 400px;
+    &:focus {
+      width: 750px;
+    }
+  }
+
+  .Input {
+    width: 750px !important;
+  }
+
+  .SearchIcon {
+    height: 34px;
+    width: 34px;
+    border-radius: 50%;
+    background-color: $purple;
+    margin-right: 3px;
+    @extend %CenterVH;
+
+    svg {
+      width: 15px;
+      height: 15px;
+      fill: $white;
+      stroke: $white;
+      stroke-width: 2px;
+    }
+  }
+}
