@@ -1,14 +1,15 @@
 import axios from "axios";
-import { getAllCharactersApiNormalizer } from "../api_normalizer/getAllCharactersApiNormalizer";
+
+import { getCharacterApiNormalizer } from "../api_normalizer/getCharacterApiNormalizer";
 import { API_URLS } from "../api_urls/ApiUrls";
 
-export const getAllCharactersApiService = (params = {}) =>
+export const getCharacterApiService = (id) =>
   new Promise((resolve, reject) => {
     if (navigator.onLine) {
       axios
-        .get(API_URLS.GET_ALL_CHARACTERS, { params })
+        .get(API_URLS.GET_CHARACTER(id))
         .then((response) => {
-          resolve(getAllCharactersApiNormalizer(response));
+          resolve(getCharacterApiNormalizer(response));
         })
         .catch((error) => {
           reject(error);

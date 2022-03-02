@@ -10,6 +10,9 @@ export const CHARACTER_CONSTANTS = {
   STATUS: {
     ALIVE: "Alive",
   },
+  GENDER: {
+    UNKNOWN: 'unknown',
+  }
 };
 
 export default COLOR_CONSTANTS;

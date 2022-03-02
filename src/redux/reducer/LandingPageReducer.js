@@ -7,12 +7,11 @@ const initialState = {
     isLoadMoreLoading: false,
     list: [],
     page: 1,
-    totalCount: 0,
-    totalPages: 0,
+    hasMore: false,
   },
 };
 
-export default function ResetPasswordReducer(state = initialState, action) {
+export default function LandingPageReducer(state = initialState, action) {
   switch (action.type) {
     case LANDING_PAGE.SET_SEARCH_VALUE:
       return {
@@ -39,6 +38,7 @@ export default function ResetPasswordReducer(state = initialState, action) {
       const {
         response: { info, results },
         isPaginated,
+        params,
       } = action.payload;
       return {
         ...state,
@@ -48,9 +48,9 @@ export default function ResetPasswordReducer(state = initialState, action) {
           list: isPaginated
             ? [...state.characterList.list, ...results]
             : results,
-          page: isPaginated ? state.characterList.page + 1 : state.characterList.page,
-          totalCount: info.count,
-          totalPages: info.pages,
+          page: params.page || state.characterList.page,
+          hasMore: !!info.next,
+          searchValue: params.name || "",
         },
       };
     default:

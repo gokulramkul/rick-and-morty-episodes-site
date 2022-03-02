@@ -1,16 +1,20 @@
 import { Provider } from "react-redux";
+import { BrowserRouter as Router } from "react-router-dom";
 
-import LandingPage from "./containers/landing_page/LandingPage";
-import logo from "./logo.svg";
+import { store } from "./Store";
 
 import "./App.css";
+import LandingPage from "./containers/landing_page/LandingPage";
+import routes from "./hoc/Route";
 
-import { store } from './Store'
 
 function App() {
   return (
     <Provider store={store} data-test="app-component">
-      <LandingPage />
+      <Router>
+        {routes()}
+        <LandingPage />
+      </Router>
     </Provider>
   );
 }

@@ -1,5 +1,7 @@
 import { getAllCharactersApiService } from "../../api/api_service/getAllCharactersApiService";
+import { trimString } from "../../utils/UtilityFunctions";
 import { LANDING_PAGE } from "./ActionConstants";
+import { store } from '../../Store'
 
 export const landingPageSetSearchValueAction = (data) => {
   return {
@@ -27,23 +29,30 @@ export const landingPageCharactersApiSuccessAction = (data) => {
   };
 };
 
-export const landingPageGetAllCharactersApiAction = (
-  params_={},
-  isPaginated = false
-) => dispatch => {
-  let params = params_;
-  if (isPaginated) {
-    dispatch(landingPageCharactersApiStartedAction());
-    params_ = {
-      ...params,
-      page: params.page + 1,
-    };
-  } else dispatch(landingPageCharactersApiLoadMoreStartedAction());
+export const landingPageGetAllCharactersApiAction =
+  (params_ = {}, isPaginated = false) =>
+  (dispatch) => {
+    let params = params_;
+    if (isPaginated) {
+      dispatch(landingPageCharactersApiStartedAction());
+      const { searchValue, page } = store.getState().LandingPageReducer.characterList;
+      const trimmedSearchValue = trimString(searchValue);
+      params = {
+        ...params_,
+        page: page + 1,
+        ...(trimmedSearchValue ? { name: trimmedSearchValue } : {}),
+      };
+    } else dispatch(landingPageCharactersApiLoadMoreStartedAction());
 
-  getAllCharactersApiService(params)
-    .then((response) => {
-      console.log('hey',response);
-      dispatch(landingPageCharactersApiSuccessAction({ response, isPaginated }));
-    })   
-    .catch((error) => {});
-};
+    getAllCharactersApiService(params)
+      .then((response) => {
+        dispatch(
+          landingPageCharactersApiSuccessAction({
+            response,
+            isPaginated,
+            params,
+          })
+        );
+      })
+      .catch((error) => {});
+  };

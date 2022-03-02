@@ -1,0 +1,47 @@
+@import "../../scss/constants";
+@import "../../scss/utilities";
+
+.Container {
+  .Header {
+    @extend %CenterV;
+    flex-direction: column;
+
+    img {
+      height: 120px;
+      width: 120px;
+      border-radius: 50%;
+    }
+
+    .TitleSection {
+      margin-left: 10px;
+
+      .CharacterTitle,
+      .CharacterSubTitle {
+        font-family: $font-family-primary;
+        margin: 0;
+        text-align: center;
+      }
+
+      .CharacterTitle {
+        margin-top: 10px;
+        font-size: 24px;
+        font-weight: 800;
+      }
+      .CharacterSubTitle {
+        font-size: 14px;
+        color: $grey-v3;
+
+        .Dot {
+          margin: 0 6px;
+          color: $grey-v4;
+          display: inline-block;
+          font-size: 18px;
+        }
+      }
+    }
+  }
+
+  // .EpisodeList {
+  //   list-style-type: none;
+  // }
+}

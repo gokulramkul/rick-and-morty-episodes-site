@@ -3,9 +3,15 @@ $font-family-primary: Proxima Nova, sans-serif;
 $white: #ffffff;
 
 $purple: #584eff;
+$purple-v2: #f4f3ff;
 
 $grey: #c4c4c4;
 $grey-v2: #e6e6e6;
+$grey-v3: #3d3d4e;
+$grey-v4: #6e6d7a;
+
+$drop-shadow-color: #d8d8d840;
+$drop-shadow-color-hover: #a6a6a640;
 
 %CenterV {
   display: flex;
@@ -27,4 +33,12 @@ $grey-v2: #e6e6e6;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+%TransparentButton {
+  background-color: transparent;
+  outline: none !important;
+  text-align: left;
+  border: 0;
+  padding: 0;
 }

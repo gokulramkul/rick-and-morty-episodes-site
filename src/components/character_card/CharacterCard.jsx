@@ -7,16 +7,16 @@ import gClasses from "../../scss/gClasses.module.scss";
 import UserIcon from "../../assets/icons/UserIcon";
 import GenderIcon from "../../assets/icons/GenderIcon";
 import LocationIcon from "../../assets/icons/LocationIcon";
-import COLOR_CONSTANTS from "../../utils/constants";
+import COLOR_CONSTANTS from "../../utils/Constants";
 
 function CharacterCard(props) {
-  const { name, isAlive, gender, location, image } = props;
+  const { name, isAlive, gender, location, image, onClick } = props;
 
   return (
-    <li className={cx(styles.Container)}>
+    <li className={cx(styles.Container)} onClick={onClick}>
       <div className={cx(styles.Status)}>
         <div
-          className={styles.StatusDotBG}
+          className={styles.StatusDotBG}    
           style={{
             backgroundColor: isAlive ? COLOR_CONSTANTS.GREEN_V2 : COLOR_CONSTANTS.RED_V2,
           }}

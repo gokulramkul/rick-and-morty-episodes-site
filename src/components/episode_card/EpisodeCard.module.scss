@@ -1,0 +1,39 @@
+@import "../../scss/constants";
+
+.Container {
+  padding: 20px;
+  position: relative;
+  border-radius: 6px;
+  background-color: $white;
+  box-shadow: 0px 8px 24px $drop-shadow-color;
+  width: 240px;
+
+  &:hover {
+    box-shadow: 0px 8px 24px $drop-shadow-color-hover;
+  }
+
+  .Episode,
+  .Name,
+  .Date {
+    font-family: $font-family-primary;
+    margin: 0;
+  }
+
+  .Episode {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: $purple;
+  }
+
+  .Name {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 5px;
+    @extend %Ellipsis;
+  }
+
+  .Date {
+    font-size: 16px;
+  }
+}

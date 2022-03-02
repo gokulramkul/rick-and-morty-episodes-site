@@ -1,0 +1,14 @@
+@import "../../scss/constants";
+
+.Container {
+  @extend %TransparentButton;
+  font-family: $font-family-primary;
+  font-size: 14px;
+  font-weight: 700;
+  color: $purple;
+  background-color: $purple-v2;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  height: 37px;
+}

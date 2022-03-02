@@ -26,13 +26,15 @@
     width: 750px !important;
   }
 
-  .SearchIcon {
+  .SearchButton {
     height: 34px;
     width: 34px;
     border-radius: 50%;
     background-color: $purple;
+    cursor: pointer;
     margin-right: 3px;
     @extend %CenterVH;
+    @extend %TransparentButton;
 
     svg {
       width: 15px;
