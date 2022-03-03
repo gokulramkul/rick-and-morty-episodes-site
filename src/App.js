@@ -1,5 +1,5 @@
 import { Provider } from "react-redux";
-import { HashRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import { store } from "./Store";
 import routes from "./hoc/Route";
@@ -10,7 +10,7 @@ import "./App.scss";
 function App() {
   return (
     <Provider store={store} data-test="app-component">
-      <Router basename={process.env.PUBLIC_URL}>
+      <Router>
         <LandingPage />
         {routes()}
       </Router>
