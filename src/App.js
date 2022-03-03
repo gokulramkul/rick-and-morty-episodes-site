@@ -10,7 +10,7 @@ import "./App.scss";
 function App() {
   return (
     <Provider store={store} data-test="app-component">
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <LandingPage />
         {routes()}
       </Router>
