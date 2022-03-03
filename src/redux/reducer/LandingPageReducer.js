@@ -9,6 +9,7 @@ const initialState = {
     page: 1,
     hasMore: false,
     searchValue: "",
+    hasRecommendations: false,
   },
 };
 
@@ -52,6 +53,7 @@ export default function LandingPageReducer(state = initialState, action) {
           page: params.page || state.characterList.page,
           hasMore: !!info.next,
           searchValue: params.name || "",
+          hasRecommendations: !!params.species,
         },
       };
     case LANDING_PAGE.CHARACTERS_API_FAILED:

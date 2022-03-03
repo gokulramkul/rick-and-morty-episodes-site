@@ -4,7 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 import CharacterCard from "../../../components/character_card/CharacterCard";
 import ResponseHandler from "../../../components/response_handler/ResponseHandler";
-import { landingPageGetAllCharactersApiAction, landingPageSetSearchValueAction } from "../../../redux/actions/LandingPageActions";
+import {
+  landingPageGetAllCharactersApiAction,
+  landingPageSetSearchValueAction,
+} from "../../../redux/actions/LandingPageActions";
+import { LANDING_PAGE_STRINGS } from "../../../strings/Strings";
 import { CHARACTER_PAGE } from "../../../utils/RouteConstants";
 import { trimString } from "../../../utils/UtilityFunctions";
 import styles from "./CharacterList.module.scss";
@@ -17,9 +21,17 @@ function CharacterList(props) {
     isLoadMoreLoading,
     setSearchValueAction,
     searchValue,
-    getAllCharactersApiAction
+    getAllCharactersApiAction,
+    hasRecommendations,
   } = props;
   let characterCards = [];
+
+  const homeButtonClickHandler = () => {
+    if (trimString(searchValue)) {
+      setSearchValueAction("");
+      getAllCharactersApiAction();
+    }
+  };
 
   if (isLoading) {
     characterCards = new Array(19)
@@ -27,11 +39,16 @@ function CharacterList(props) {
       .map((data, index) => <CharacterCard key={`loader${index}`} isLoading />);
   } else if (characterList?.length > 0) {
     characterCards = characterList.map((eachCharacter, index) => {
-      const { id, ...otherCharacterProps } = eachCharacter;
+      const { id, species, ...otherCharacterProps } = eachCharacter;
       return (
         <CharacterCard
           key={`characterCard${index}`}
-          onClick={() => navigate(`${CHARACTER_PAGE}${id}`)}
+          onClick={() => {
+            navigate(`${CHARACTER_PAGE}${id}`);
+            if (trimString(searchValue)) {
+              localStorage.setItem("recent_search_species", species);
+            }
+          }}
           {...otherCharacterProps}
         />
       );
@@ -49,18 +66,14 @@ function CharacterList(props) {
   }
 
   return characterCards.length === 0 ? (
-    <ResponseHandler
-      homeButtonOnClick={() => {
-        if (trimString(searchValue)) {
-          setSearchValueAction("");
-          getAllCharactersApiAction({
-            page: 1,
-          });
-        }
-      }}
-    />
+    <ResponseHandler homeButtonOnClick={homeButtonClickHandler} />
   ) : (
-    <ul className={styles.Container}>{characterCards}</ul>
+    <>
+      {hasRecommendations && (
+        <h2 className={styles.RecommendationTitle}>{LANDING_PAGE_STRINGS.RECOMMENDATIONS.TITLE}</h2>
+      )}
+      <ul className={styles.Container}>{characterCards}</ul>
+    </>
   );
 }
 
@@ -82,6 +95,7 @@ const mapStateToProps = (state) => {
     isLoading: characterList.isLoading,
     isLoadMoreLoading: characterList.isLoadMoreLoading,
     searchValue: state.LandingPageReducer.searchValue,
+    hasRecommendations: characterList.hasRecommendations,
   };
 };
 

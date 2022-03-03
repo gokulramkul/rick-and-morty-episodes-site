@@ -14,6 +14,7 @@ export const getAllCharactersApiNormalizer = (response) => {
             : `${eachResult.species}(${eachResult.gender})`,
         location: eachResult.location.name,
         image: eachResult.image,
+        species: eachResult.species,
       };
     }),
   };

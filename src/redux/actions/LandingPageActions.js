@@ -2,6 +2,7 @@ import { getAllCharactersApiService } from "../../api/api_service/getAllCharacte
 import { trimString } from "../../utils/UtilityFunctions";
 import { LANDING_PAGE } from "./ActionConstants";
 import { store } from "../../Store";
+import { LOCAL_STORAGE_CONSTANTS } from "../../utils/Constants";
 
 export const landingPageSetSearchValueAction = (data) => {
   return {
@@ -40,17 +41,38 @@ export const landingPageGetAllCharactersApiAction =
   (params_ = {}, isPaginated = false) =>
   (dispatch) => {
     let params = params_;
+    const { searchValue, characterList: { searchValue: searchValueServer, page } } = store.getState().LandingPageReducer;
+    const recentSearchSpecies = localStorage.getItem(LOCAL_STORAGE_CONSTANTS.RECENT_SEARCH_SPECIES);
+
     if (isPaginated) {
       dispatch(landingPageCharactersApiLoadMoreStartedAction());
-      const { searchValue, page } =
-        store.getState().LandingPageReducer.characterList;
-      const trimmedSearchValue = trimString(searchValue);
+     
       params = {
         ...params_,
         page: page + 1,
-        ...(trimmedSearchValue ? { name: trimmedSearchValue } : {}),
       };
-    } else dispatch(landingPageCharactersApiStartedAction());
+      const trimmedSearchValue = trimString(searchValueServer);
+      if (trimmedSearchValue) {
+        params.name = trimmedSearchValue;
+      } else if (recentSearchSpecies) {
+        params.species = recentSearchSpecies;
+      }
+    } else {
+      dispatch(landingPageCharactersApiStartedAction());
+
+      const recentSearchSpecies = localStorage.getItem(LOCAL_STORAGE_CONSTANTS.RECENT_SEARCH_SPECIES);
+      params = {
+        ...params_,
+        page: 1,
+      };
+      const trimmedSearchValue = trimString(searchValue);
+      if (trimString(searchValueServer) !== trimmedSearchValue && trimmedSearchValue) {
+        params.name = trimmedSearchValue;
+      } else if (recentSearchSpecies) {
+        params.species = recentSearchSpecies;
+      }
+    }
+    
 
     getAllCharactersApiService(params)
       .then((response) => {

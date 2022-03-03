@@ -14,6 +14,9 @@ export const LANDING_PAGE_STRINGS = {
   STATUS: {
     ALIVE: 'Alive :)',
     DEAD: 'Dead :(',
+  },
+  RECOMMENDATIONS: {
+    TITLE: 'Recommendations based on your recent search!'
   }
 };
 

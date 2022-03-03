@@ -13,6 +13,7 @@ import CharacterList from "./character_list/CharacterList";
 import { trimString } from "../../utils/UtilityFunctions";
 import { LANDING_PAGE_STRINGS } from "../../strings/Strings";
 import styles from "./LandingPage.module.scss";
+import { LOCAL_STORAGE_CONSTANTS } from "../../utils/Constants";
 
 function LandingPage(props) {
   const {
@@ -25,17 +26,11 @@ function LandingPage(props) {
   } = props;
 
   useEffect(() => {
-    getAllCharactersApiAction();
+       getAllCharactersApiAction();
   }, []);
 
   const onSearchHandler = () => {
-    const trimmedSearchValue = trimString(searchValue);
-    if (trimString(searchValueServer) !== trimmedSearchValue) {
-      getAllCharactersApiAction({
-        ...(trimmedSearchValue ? { name: trimmedSearchValue } : {}),
-        page: 1,
-      });
-    }
+      getAllCharactersApiAction();
   };
 
   const onLoadMoreHandler = () => {
@@ -45,9 +40,7 @@ function LandingPage(props) {
   return (
     <div className={styles.Container}>
       <div className={cx(styles.Header)}>
-        <RickAndMortyLogo
-          className={styles.Logo}
-        />
+        <RickAndMortyLogo className={styles.Logo} />
         <SearchBar
           onChange={(event) => setSearchValueAction(event.target.value)}
           value={searchValue}
