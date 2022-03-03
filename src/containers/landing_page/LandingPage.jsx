@@ -12,6 +12,7 @@ import {
 import CharacterList from "./character_list/CharacterList";
 import { trimString } from "../../utils/UtilityFunctions";
 import Button from "../../components/button/Button";
+import { LANDING_PAGE_STRINGS } from "../../strings/Strings";
 
 function LandingPage(props) {
   const {
@@ -20,6 +21,7 @@ function LandingPage(props) {
     setSearchValueAction,
     getAllCharactersApiAction,
     hasMoreCharacters,
+    isLoading,
   } = props;
 
   useEffect(() => {
@@ -31,6 +33,7 @@ function LandingPage(props) {
     if (trimString(searchValueServer) !== trimmedSearchValue) {
       getAllCharactersApiAction({
         ...(trimmedSearchValue ? { name: trimmedSearchValue } : {}),
+        page: 1,
       });
     }
   };
@@ -40,18 +43,26 @@ function LandingPage(props) {
   };
 
   return (
-    <>
+    <div className={styles.Container}>
       <div className={cx(styles.Header)}>
         <RickAndMortyLogo className={styles.Logo} />
         <SearchBar
           onChange={(event) => setSearchValueAction(event.target.value)}
           value={searchValue}
+          valueServer={searchValueServer}
           onSearchButtonClick={onSearchHandler}
+          disabled={isLoading}
         />
       </div>
-      <CharacterList />
-      {hasMoreCharacters && <Button onClick={onLoadMoreHandler}>Load more</Button>}
-    </>
+      <div className={styles.CharacterList}>
+        <CharacterList />
+        {!isLoading && hasMoreCharacters && (
+          <div className={styles.ShowMoreButton}>
+            <Button onClick={onLoadMoreHandler}>{LANDING_PAGE_STRINGS.LOAD_MORE_BUTTON.LABEL}</Button>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -65,11 +76,15 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const mapStateToProps = (state) => {
-  const { LandingPageReducer, LandingPageReducer: { characterList } } = state;
+  const {
+    LandingPageReducer,
+    LandingPageReducer: { characterList },
+  } = state;
   return {
     searchValue: LandingPageReducer.searchValue,
     searchValueServer: characterList.searchValue,
     hasMoreCharacters: characterList.hasMore,
+    isLoading: characterList.isLoading,
   };
 };
 

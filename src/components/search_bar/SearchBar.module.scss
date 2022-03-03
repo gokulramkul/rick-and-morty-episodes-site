@@ -1,4 +1,5 @@
 @import "../../scss/constants";
+@import "../../scss/utilities";
 
 .Container {
   height: 40px;
@@ -6,6 +7,10 @@
   border-radius: 50px;
   border: 1px solid $grey;
   @extend %CenterV;
+
+  @include for-phone-and-tab {
+    width: 100%;
+  }
 
   input {
     border: 0;
@@ -19,6 +24,11 @@
     width: 400px;
     &:focus {
       width: 750px;
+    }
+
+    @include for-phone-and-tab {
+      width: unset;
+      flex: 1;
     }
   }
 

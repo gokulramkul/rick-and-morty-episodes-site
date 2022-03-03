@@ -1,14 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import cx from "classnames/bind";
 import { connect } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
 
 import EpisodeList from "./episode_list/EpisodeList";
-import { characterPageClearStateAction, characterPageGetCharacterDetailsAndEpisodesApiAction } from "../../redux/actions/CharacterPageActions";
-
+import ModalWrapper from "../../components/modal/ModalWrapper";
+import {
+  characterPageClearStateAction,
+  characterPageGetCharacterDetailsAndEpisodesApiAction,
+} from "../../redux/actions/CharacterPageActions";
 import styles from "./CharacterPage.module.scss";
 
 function CharacterPage(props) {
+  const navigate = useNavigate();
   const { id } = useParams();
   const {
     getCharacterDetailsAndEpisodesApiAction,
@@ -18,7 +23,15 @@ function CharacterPage(props) {
     gender,
     location,
     image,
+    isLoading,
+    isError,
   } = props;
+
+  const [isImageLoading, setIsImageLoading] = useState(true);
+
+  const onImageLoadHandler = () => {
+    setIsImageLoading(false);
+  };
 
   useEffect(() => {
     getCharacterDetailsAndEpisodesApiAction(id);
@@ -28,19 +41,57 @@ function CharacterPage(props) {
   }, []);
 
   return (
-    <div className={styles.Container}>
-      <div className={styles.Header}>
-        <img src={image} />
-        <div className={styles.TitleSection}>
-          <p className={styles.CharacterTitle}>{name}</p>
-          <p className={styles.CharacterSubTitle}>
-            {gender} <span className={styles.Dot}>•</span> {location}
-            <span className={styles.Dot}>•</span> {episodeCount}
-          </p>
+    <ModalWrapper
+      isVisible
+      onCloseClick={() => {
+        navigate("/");
+      }}
+    >
+      <div className={styles.Container}>
+        {!isError && (
+          <div className={styles.Header}>
+            {(isImageLoading || isLoading) && (
+              <Skeleton circle height={120} width={120} />
+            )}
+            <img
+              src={image}
+              onLoad={onImageLoadHandler}
+              style={{ display: isImageLoading ? "none" : "block" }}
+            />
+            <div className={styles.TitleSection}>
+              <p className={styles.CharacterTitle}>
+                {isLoading ? <Skeleton width={200} height={15} /> : name}
+              </p>
+              <p className={styles.CharacterSubTitle}>
+                {isLoading ? (
+                  <>
+                    <Skeleton
+                      width={100}
+                      height={15}
+                      style={{ marginRight: "10px" }}
+                    />
+                    <Skeleton
+                      width={100}
+                      height={15}
+                      style={{ marginRight: "10px" }}
+                    />
+                    <Skeleton width={100} height={15} />
+                  </>
+                ) : (
+                  <>
+                    {gender} <span className={styles.Dot}>•</span> {location}
+                    <span className={styles.Dot}>•</span> {episodeCount}
+                  </>
+                )}
+              </p>
+            </div>
+          </div>
+        )}
+        <div className={styles.EpisodeList}>
+          <EpisodeList />
         </div>
       </div>
-      <EpisodeList />
-    </div>
+    </ModalWrapper>
   );
 }
 
@@ -61,8 +112,9 @@ const mapStateToProps = (state) => {
   } = state;
   return {
     isLoading: CharacterPageReducer.isLoading,
-    ...characterDetails,
+    isError: CharacterPageReducer.isError,
     episodeList: CharacterPageReducer.episodeList,
+    ...characterDetails,
   };
 };
 

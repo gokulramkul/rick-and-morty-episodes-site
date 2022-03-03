@@ -2,9 +2,17 @@
 @import "../../scss/utilities";
 
 .Container {
+  padding-top: 50px;
+  height: 100%;
+
+  @include for-phone-and-tab {
+    padding: 50px 25px;
+  }
+
   .Header {
     @extend %CenterV;
     flex-direction: column;
+    margin-bottom: 10px;
 
     img {
       height: 120px;
@@ -41,7 +49,8 @@
     }
   }
 
-  // .EpisodeList {
-  //   list-style-type: none;
-  // }
+  .EpisodeList {
+    height: calc(100% - 231px);
+    overflow-y: auto;
+  }
 }

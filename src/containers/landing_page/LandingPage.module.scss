@@ -1,25 +1,41 @@
 @import "../../scss/constants";
 @import "../../scss/utilities";
 
-.Header {
-  @extend %CenterH;
-  padding: 25px;
-  border-bottom: 1px solid $grey-v2;
-
-  @include for-phone-and-tab {
-    flex-direction: column;
-    align-items: center;
-    justify-content: unset;
-  }
-
-  .Logo {
-    position: absolute;
-    left: 25px;
+.Container {
+  .Header {
+    @extend %CenterH;
+    padding: 25px;
+    border-bottom: 1px solid $grey-v2;
 
     @include for-phone-and-tab {
-      position: relative;
-      left: 0;
-      margin-bottom: 15px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: unset;
+    }
+
+    .Logo {
+      position: absolute;
+      left: 25px;
+
+      @include for-phone-and-tab {
+        position: relative;
+        left: 0;
+        margin-bottom: 15px;
+      }
+    }
+  }
+
+  .CharacterList {
+    height: calc(100vh - 93px);
+    overflow-y: auto;
+
+    @include for-phone-and-tab {
+      height: calc(100vh - 148px);
+    }
+
+    .ShowMoreButton {
+      @extend %CenterH;
+      padding-bottom: 50px;
     }
   }
 }

@@ -3,14 +3,14 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 
 import CharacterPage from "../containers/character_page/CharacterPage";
+import PageNotFound from "../components/page_not_found/PageNotFound";
 import { HOME, CHARACTER_PAGE } from "../utils/RouteConstants";
-
 
 export const routes = () => (
   <Routes>
     <Route path={HOME} exact element={<></>} />
     <Route path={`${CHARACTER_PAGE}:id`} exact element={<CharacterPage />} />
-    <Route path="*" element={<>Page not found</>} />
+    <Route path="*" element={<PageNotFound />} />
   </Routes>
 );
 

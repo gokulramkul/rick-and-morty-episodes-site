@@ -1,16 +1,8 @@
 @import url("http://fonts.cdnfonts.com/css/proxima-nova-2");
 body {
   margin: 0;
-  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; */
+  overflow: hidden;
 }
-
-/* code {
-    font-family: 'Poppins', sans-serif;
-} */
 
 * {
   -webkit-transition: 0.3s all;

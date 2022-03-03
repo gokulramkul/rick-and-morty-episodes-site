@@ -1,7 +1,10 @@
 .Container {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 280px);
   gap: 30px;
+  justify-content: center;
   list-style-type: none;
   margin: 0;
+  padding: 0;
+  padding: 30px 75px 50px 75px;
 }

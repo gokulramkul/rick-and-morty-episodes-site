@@ -8,6 +8,7 @@ const initialState = {
     list: [],
     page: 1,
     hasMore: false,
+    searchValue: "",
   },
 };
 
@@ -51,6 +52,18 @@ export default function LandingPageReducer(state = initialState, action) {
           page: params.page || state.characterList.page,
           hasMore: !!info.next,
           searchValue: params.name || "",
+        },
+      };
+    case LANDING_PAGE.CHARACTERS_API_FAILED:
+      return {
+        ...state,
+        characterList: {
+          ...state.characterList,
+          isLoading: false,
+          isLoadMoreLoading: false,
+          list: [],
+          hasMore: false,
+          searchValue: action.payload.params.name || "",
         },
       };
     default:

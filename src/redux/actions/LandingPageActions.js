@@ -1,7 +1,7 @@
 import { getAllCharactersApiService } from "../../api/api_service/getAllCharactersApiService";
 import { trimString } from "../../utils/UtilityFunctions";
 import { LANDING_PAGE } from "./ActionConstants";
-import { store } from '../../Store'
+import { store } from "../../Store";
 
 export const landingPageSetSearchValueAction = (data) => {
   return {
@@ -29,20 +29,28 @@ export const landingPageCharactersApiSuccessAction = (data) => {
   };
 };
 
+const landingPageCharactersApiFailedAction = (data) => {
+  return {
+    type: LANDING_PAGE.CHARACTERS_API_FAILED,
+    payload: data,
+  };
+};
+
 export const landingPageGetAllCharactersApiAction =
   (params_ = {}, isPaginated = false) =>
   (dispatch) => {
     let params = params_;
     if (isPaginated) {
-      dispatch(landingPageCharactersApiStartedAction());
-      const { searchValue, page } = store.getState().LandingPageReducer.characterList;
+      dispatch(landingPageCharactersApiLoadMoreStartedAction());
+      const { searchValue, page } =
+        store.getState().LandingPageReducer.characterList;
       const trimmedSearchValue = trimString(searchValue);
       params = {
         ...params_,
         page: page + 1,
         ...(trimmedSearchValue ? { name: trimmedSearchValue } : {}),
       };
-    } else dispatch(landingPageCharactersApiLoadMoreStartedAction());
+    } else dispatch(landingPageCharactersApiStartedAction());
 
     getAllCharactersApiService(params)
       .then((response) => {
@@ -54,5 +62,7 @@ export const landingPageGetAllCharactersApiAction =
           })
         );
       })
-      .catch((error) => {});
+      .catch((error) => {
+        dispatch(landingPageCharactersApiFailedAction({ params }));
+      });
   };

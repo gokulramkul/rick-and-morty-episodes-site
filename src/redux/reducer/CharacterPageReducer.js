@@ -2,6 +2,7 @@ import { CHARACTER_PAGE } from "../actions/ActionConstants";
 
 const initialState = {
   isLoading: false,
+  isError: false,
   characterDetails: {
     image: "",
     name: "",
@@ -18,7 +19,12 @@ export default function CharacterPageReducer(state = initialState, action) {
     case CHARACTER_PAGE.API_STARTED:
       return {
         ...state,
-        isLoading: false,
+        isLoading: true,
+      };
+    case CHARACTER_PAGE.API_FAILED:
+      return {
+        ...initialState,
+        isError: true,
       };
     case CHARACTER_PAGE.SET_DATA:
       return {

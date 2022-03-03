@@ -1,0 +1,52 @@
+@import "../../scss/constants";
+
+@keyframes modal {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.Modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  animation-name: modal;
+  animation-duration: 0.5s;
+
+  .CloseIcon {
+    z-index: 1;
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    cursor: pointer;
+    path {
+      fill: $white;
+    }
+  }
+}
+
+@keyframes mainModal {
+  0% {
+    transform: translateY(100vh);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.ModalMain {
+  position: fixed;
+  background: $white;
+  height: 95vh;
+  width: 100vw;
+  top: 5vh;
+  border-radius: 12px 12px 0px 0px;
+  animation-name: mainModal;
+  animation-duration: 0.5s;
+}

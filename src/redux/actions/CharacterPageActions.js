@@ -16,6 +16,12 @@ const characterPageApiStartedAction = () => {
   };
 };
 
+const characterPageApiFailedAction = () => {
+  return {
+    type: CHARACTER_PAGE.API_FAILED,
+  };
+};
+
 export const characterPageClearStateAction = () => {
   return {
     type: CHARACTER_PAGE.CLEAR_DATA,
@@ -29,7 +35,9 @@ export const characterPageGetCharacterDetailsAndEpisodesApiAction =
     try {
       const characterDetails = await getCharacterApiService(characterId);
       const { episodeIdList, ...otherCharacterFields } = characterDetails;
-      const episodeList = await getMultipleEpisodesApiService(characterDetails.episodeIdList);
+      const episodeList = await getMultipleEpisodesApiService(
+        characterDetails.episodeIdList
+      );
       dispatch(
         characterPageSetDataAction({
           isLoading: false,
@@ -37,5 +45,7 @@ export const characterPageGetCharacterDetailsAndEpisodesApiAction =
           episodeList,
         })
       );
-    } catch (error) {}
+    } catch (error) {
+      dispatch(characterPageApiFailedAction());
+    }
   };

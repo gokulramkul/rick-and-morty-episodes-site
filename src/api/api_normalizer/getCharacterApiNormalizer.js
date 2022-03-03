@@ -1,3 +1,4 @@
+import { CHARACTER_PAGE_STRINGS } from "../../strings/Strings";
 import { CHARACTER_CONSTANTS } from "../../utils/Constants";
 
 export const getCharacterApiNormalizer = (response) => {
@@ -11,7 +12,7 @@ export const getCharacterApiNormalizer = (response) => {
         ? data.species
         : `${data.species}(${data.gender})`,
     location: data.location.name,
-    episodeCount: `${data.episode.length} Episodes`,
+    episodeCount: `${data.episode.length}${CHARACTER_PAGE_STRINGS.EPISODE_LABEL}`,
     episodeIdList: data.episode.map((eachEpisode) =>
       Number(eachEpisode.match(/\d+$/)[0])
     ),

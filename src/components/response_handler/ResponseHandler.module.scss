@@ -1,0 +1,21 @@
+@import "../../scss/constants";
+
+.Container {
+  @extend %CenterVH;
+  flex-direction: column;
+  height: inherit;
+  margin-top: -50px;
+  svg {
+    height: 200px;
+    width: 200px;
+  }
+  p {
+    font-family: $font-family-primary;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+    color: $purple;
+    margin-top: -25px;
+  }
+}

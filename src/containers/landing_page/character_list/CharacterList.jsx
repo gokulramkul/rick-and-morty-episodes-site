@@ -3,37 +3,59 @@ import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import CharacterCard from "../../../components/character_card/CharacterCard";
+import ResponseHandler from "../../../components/response_handler/ResponseHandler";
 import { CHARACTER_PAGE } from "../../../utils/RouteConstants";
 import styles from "./CharacterList.module.scss";
 
 function CharacterList(props) {
   const navigate = useNavigate();
-  const { characterList } = props;
+  const { characterList, isLoading, isLoadMoreLoading } = props;
+  let characterCards = [];
 
-  const characterCards = characterList.map((eachCharacter) => {
-    const { id, ...otherCharacterProps } = eachCharacter;
-    return (
-      <CharacterCard
-        {...otherCharacterProps}
-        onClick={() => navigate(`${CHARACTER_PAGE}${id}`)}
-      />
+  if (isLoading) {
+    characterCards = new Array(19)
+      .fill()
+      .map((data, index) => <CharacterCard key={`loader${index}`} isLoading />);
+  } else if (characterList?.length > 0) {
+    characterCards = characterList.map((eachCharacter, index) => {
+      const { id, ...otherCharacterProps } = eachCharacter;
+      return (
+        <CharacterCard
+          key={`characterCard${index}`}
+          onClick={() => navigate(`${CHARACTER_PAGE}${id}`)}
+          {...otherCharacterProps}
+        />
+      );
+    });
+  }
+
+  if (isLoadMoreLoading) {
+    characterCards.push(
+      ...new Array(19)
+        .fill()
+        .map((data, index) => (
+          <CharacterCard key={`moreLoader${index}`} isLoading />
+        ))
     );
-  });
+  }
 
-  return <ul className={styles.Container}>{characterCards}</ul>;
+
+  return characterCards.length === 0 ? (
+    <ResponseHandler />
+  ) : (
+    <ul className={styles.Container}>{characterCards}</ul>
+  );
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    //   setSearchValueAction: (searchValue) => dispatch(landingPageSetSearchValueAction(searchValue)),
-    //   getAllCharactersApiAction: (...params)=> dispatch(landingPageGetAllCharactersApiAction(...params)),
-  };
-};
-
 const mapStateToProps = (state) => {
+  const {
+    LandingPageReducer: { characterList },
+  } = state;
   return {
-    characterList: state.LandingPageReducer.characterList.list,
+    characterList: characterList.list,
+    isLoading: characterList.isLoading,
+    isLoadMoreLoading: characterList.isLoadMoreLoading,
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CharacterList);
+export default connect(mapStateToProps, null)(CharacterList);
