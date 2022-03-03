@@ -8,8 +8,8 @@ import { HOME, CHARACTER_PAGE } from "../utils/RouteConstants";
 
 export const routes = () => (
   <Routes>
-    <Route path={HOME} element={<></>} />
-    <Route path={`${CHARACTER_PAGE}:id`} element={<CharacterPage />} />
+    <Route path={HOME} exact element={<></>} />
+    <Route path={`${CHARACTER_PAGE}:id`} exact element={<CharacterPage />} />
     <Route path="*" element={<PageNotFound />} />
   </Routes>
 );
