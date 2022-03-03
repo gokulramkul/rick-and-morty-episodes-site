@@ -1,5 +1,5 @@
 import { Provider } from "react-redux";
-import { BrowserRouter as Router } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 
 import { store } from "./Store";
 import routes from "./hoc/Route";
@@ -10,10 +10,10 @@ import "./App.scss";
 function App() {
   return (
     <Provider store={store} data-test="app-component">
-      <Router>
+      <HashRouter basename="/">
         <LandingPage />
         {routes()}
-      </Router>
+      </HashRouter>
     </Provider>
   );
 }
