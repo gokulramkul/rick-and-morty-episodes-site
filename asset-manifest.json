@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/rick-and-morty-episodes-site/static/css/main.220ee03c.css",
-    "main.js": "/rick-and-morty-episodes-site/static/js/main.c7347726.js",
+    "main.js": "/rick-and-morty-episodes-site/static/js/main.822ebefc.js",
     "static/js/787.3ff43d41.chunk.js": "/rick-and-morty-episodes-site/static/js/787.3ff43d41.chunk.js",
     "index.html": "/rick-and-morty-episodes-site/index.html",
     "main.220ee03c.css.map": "/rick-and-morty-episodes-site/static/css/main.220ee03c.css.map",
-    "main.c7347726.js.map": "/rick-and-morty-episodes-site/static/js/main.c7347726.js.map",
+    "main.822ebefc.js.map": "/rick-and-morty-episodes-site/static/js/main.822ebefc.js.map",
     "787.3ff43d41.chunk.js.map": "/rick-and-morty-episodes-site/static/js/787.3ff43d41.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.220ee03c.css",
-    "static/js/main.c7347726.js"
+    "static/js/main.822ebefc.js"
   ]
 }
