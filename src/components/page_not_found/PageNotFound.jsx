@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import ModalWrapper from "../modal/ModalWrapper";
 import ResponseHandler from "../response_handler/ResponseHandler";
 import { RESPONSE_HANDLER_CONSTANTS } from "../../utils/Constants";
+import { HOME } from '../../utils/RouteConstants';
 
 function PageNotFound(props) {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ function PageNotFound(props) {
     <ModalWrapper
       isVisible
       onCloseClick={() => {
-        navigate("/");
+        navigate(HOME);
       }}
     >
       <ResponseHandler type={RESPONSE_HANDLER_CONSTANTS.PAGE_NOT_FOUND} />

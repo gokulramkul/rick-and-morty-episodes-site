@@ -11,6 +11,7 @@ import {
   characterPageGetCharacterDetailsAndEpisodesApiAction,
 } from "../../redux/actions/CharacterPageActions";
 import styles from "./CharacterPage.module.scss";
+import { HOME } from '../../utils/RouteConstants';
 
 function CharacterPage(props) {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ function CharacterPage(props) {
     <ModalWrapper
       isVisible
       onCloseClick={() => {
-        navigate("/");
+        navigate(HOME);
       }}
     >
       <div className={styles.Container}>
