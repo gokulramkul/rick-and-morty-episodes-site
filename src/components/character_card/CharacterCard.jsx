@@ -8,6 +8,7 @@ import UserIcon from "../../assets/icons/UserIcon";
 import GenderIcon from "../../assets/icons/GenderIcon";
 import LocationIcon from "../../assets/icons/LocationIcon";
 import COLOR_CONSTANTS from "../../utils/Constants";
+import { LANDING_PAGE_STRINGS } from "../../strings/Strings";
 
 function CharacterCard(props) {
   const { isLoading, name, isAlive, gender, location, image, onClick } = props;
@@ -20,7 +21,7 @@ function CharacterCard(props) {
   return (
     <li className={cx(styles.Container)} onClick={onClick}>
       {!isLoading && (
-        <div className={cx(styles.Status)}>
+        <div className={cx(styles.Status)} title={isAlive? LANDING_PAGE_STRINGS.STATUS.ALIVE : LANDING_PAGE_STRINGS.STATUS.DEAD}>
           <div
             className={styles.StatusDotBG}
             style={{

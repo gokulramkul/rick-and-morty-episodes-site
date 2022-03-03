@@ -16,6 +16,7 @@
     .Logo {
       position: absolute;
       left: 25px;
+      cursor: pointer;
 
       @include for-phone-and-tab {
         position: relative;

@@ -4,12 +4,21 @@ import { useNavigate } from "react-router-dom";
 
 import CharacterCard from "../../../components/character_card/CharacterCard";
 import ResponseHandler from "../../../components/response_handler/ResponseHandler";
+import { landingPageGetAllCharactersApiAction, landingPageSetSearchValueAction } from "../../../redux/actions/LandingPageActions";
 import { CHARACTER_PAGE } from "../../../utils/RouteConstants";
+import { trimString } from "../../../utils/UtilityFunctions";
 import styles from "./CharacterList.module.scss";
 
 function CharacterList(props) {
   const navigate = useNavigate();
-  const { characterList, isLoading, isLoadMoreLoading } = props;
+  const {
+    characterList,
+    isLoading,
+    isLoadMoreLoading,
+    setSearchValueAction,
+    searchValue,
+    getAllCharactersApiAction
+  } = props;
   let characterCards = [];
 
   if (isLoading) {
@@ -39,13 +48,30 @@ function CharacterList(props) {
     );
   }
 
-
   return characterCards.length === 0 ? (
-    <ResponseHandler />
+    <ResponseHandler
+      homeButtonOnClick={() => {
+        if (trimString(searchValue)) {
+          setSearchValueAction("");
+          getAllCharactersApiAction({
+            page: 1,
+          });
+        }
+      }}
+    />
   ) : (
     <ul className={styles.Container}>{characterCards}</ul>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setSearchValueAction: (searchValue) =>
+      dispatch(landingPageSetSearchValueAction(searchValue)),
+    getAllCharactersApiAction: (params, isPaginated) =>
+      dispatch(landingPageGetAllCharactersApiAction(params, isPaginated)),
+  };
+};
 
 const mapStateToProps = (state) => {
   const {
@@ -55,7 +81,8 @@ const mapStateToProps = (state) => {
     characterList: characterList.list,
     isLoading: characterList.isLoading,
     isLoadMoreLoading: characterList.isLoadMoreLoading,
+    searchValue: state.LandingPageReducer.searchValue,
   };
 };
 
-export default connect(mapStateToProps, null)(CharacterList);
+export default connect(mapStateToProps, mapDispatchToProps)(CharacterList);

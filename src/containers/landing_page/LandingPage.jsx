@@ -3,7 +3,7 @@ import cx from "classnames/bind";
 import { connect } from "react-redux";
 
 import RickAndMortyLogo from "../../assets/logo/RickAndMortyLogo";
-import styles from "./LandingPage.module.scss";
+import Button from "../../components/button/Button";
 import SearchBar from "../../components/search_bar/SearchBar";
 import {
   landingPageGetAllCharactersApiAction,
@@ -11,8 +11,8 @@ import {
 } from "../../redux/actions/LandingPageActions";
 import CharacterList from "./character_list/CharacterList";
 import { trimString } from "../../utils/UtilityFunctions";
-import Button from "../../components/button/Button";
 import { LANDING_PAGE_STRINGS } from "../../strings/Strings";
+import styles from "./LandingPage.module.scss";
 
 function LandingPage(props) {
   const {
@@ -45,7 +45,9 @@ function LandingPage(props) {
   return (
     <div className={styles.Container}>
       <div className={cx(styles.Header)}>
-        <RickAndMortyLogo className={styles.Logo} />
+        <RickAndMortyLogo
+          className={styles.Logo}
+        />
         <SearchBar
           onChange={(event) => setSearchValueAction(event.target.value)}
           value={searchValue}
@@ -58,7 +60,9 @@ function LandingPage(props) {
         <CharacterList />
         {!isLoading && hasMoreCharacters && (
           <div className={styles.ShowMoreButton}>
-            <Button onClick={onLoadMoreHandler}>{LANDING_PAGE_STRINGS.LOAD_MORE_BUTTON.LABEL}</Button>
+            <Button onClick={onLoadMoreHandler}>
+              {LANDING_PAGE_STRINGS.LOAD_MORE_BUTTON.LABEL}
+            </Button>
           </div>
         )}
       </div>
