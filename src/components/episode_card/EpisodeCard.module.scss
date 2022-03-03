@@ -20,20 +20,20 @@
   }
 
   .Episode {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     margin-bottom: 10px;
     color: $purple;
   }
 
   .Name {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 700;
     margin-bottom: 5px;
     @extend %Ellipsis;
   }
 
   .Date {
-    font-size: 16px;
+    font-size: 15px;
   }
 }

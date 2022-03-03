@@ -3,7 +3,7 @@
 .Container {
   @extend %TransparentButton;
   font-family: $font-family-primary;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   color: $purple;
   background-color: $purple-v2;
@@ -11,4 +11,8 @@
   border-radius: 6px;
   cursor: pointer;
   height: 37px;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 }
